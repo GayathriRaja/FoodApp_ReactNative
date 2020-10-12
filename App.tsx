@@ -20,7 +20,6 @@ import WelcomeScreen from './Components/welcomeScreen'
 const App = () => {
   return (
     <View>
-        {/* <Text>Hello World</Text> */}
         <WelcomeScreen/>
      </View>
   )
