@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text,View,Button,Image,StyleSheet} from 'react-native'
+import {Text,View,Button,Image,StyleSheet,TouchableOpacity} from 'react-native'
 import Carousel from '../Images/assets/carousel1.png'
 
 
@@ -13,8 +13,8 @@ const WelcomeScreen : React.FC=()=>{
         <Text style={ComponentStyling.txt_main}>Find services near you</Text>
         <Text style={ComponentStyling.txt_sub}>Search for local and international services and</Text>
         <Text style={ComponentStyling.txt_sub}>browse different categories</Text>
-        <Button  onPress={()=>{}} title="Login"  />
-        <Button onPress={()=>{}} title="Sign UP" />
+        <TouchableOpacity  onPress={()=>{}} style={ComponentStyling.btn_style}><Text>Login</Text></TouchableOpacity>
+        <TouchableOpacity onPress={()=>{}} style={ComponentStyling.btn_style}><Text>Sign Up</Text></TouchableOpacity>
       </View>
     )
 }
@@ -38,6 +38,15 @@ const ComponentStyling=StyleSheet.create({
     },
     txt_sub:{
         textAlign:"center"
+    },
+    btn_style:{
+        backgroundColor:"#4d4dff",
+       width:200,
+       height:40,
+       borderRadius:20,
+       textAlign:"center",
+       marginTop:40
+
     }
 
 
