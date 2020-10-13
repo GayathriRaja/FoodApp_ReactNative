@@ -1,5 +1,7 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {Text, TextInput, View,StyleSheet,TouchableOpacity, Image} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const Login: React.FC=()=>{
@@ -8,30 +10,30 @@ const Login: React.FC=()=>{
     const[password,setPassword]=useState('');
 
     
+    const navigation=useNavigation();
+
 
     return (
-        <View style={loginStyle.view_style}>
+        <View >
 
             <Text style={loginStyle.componentHeading}>Login</Text>
-            
-            <Text>Email:</Text> 
-            <TextInput
-                onChangeText={email=>{setEmail(email)}}
-                multiline={true} 
-                placeholder="Email Address" 
-                value={email}/>
-            
-            <View>
-                <Text>Password:</Text>
+
                 <TextInput 
-                onChangeText={pwd=>{setPassword(pwd)}} 
-                multiline={true} 
-                placeholder="Password"
-                value={password} 
-                caretHidden={false}
-                />
-                <Image source={require('../Images/assets/pswrd_hide.png')}/>
-            </View>
+                    style={loginStyle.txt_input_style}
+                    onChangeText={email=>{setEmail(email)}}
+                    multiline={true} 
+                    placeholder="Email Address" 
+                    value={email}/>
+                
+                    <TextInput 
+                     style={loginStyle.txt_input_style}
+                    onChangeText={pwd=>{setPassword(pwd)}} 
+                    multiline={true} 
+                    placeholder="Password"
+                    value={password} 
+                    caretHidden={false}
+                    />
+                <Image style={loginStyle.image} source={require('../Images/assets/pswrd_hide.png')}/>
             <TouchableOpacity onPress={()=>{}} style={loginStyle.btn_login}>
             <Text style={loginStyle.txt_login}>Login</Text>
             </TouchableOpacity>
@@ -42,7 +44,7 @@ const Login: React.FC=()=>{
             </TouchableOpacity>
 
             <TouchableOpacity >
-                <Text style={loginStyle.link_forgot_pwd}>Not a member yet?Sign up now</Text>
+                <Text style={loginStyle.link_forgot_pwd} onPress={()=>{navigation.navigate('SignUp',{screen:"SignUp"})}}>Not a member yet?Sign up now</Text>
             </TouchableOpacity>
 
               
@@ -56,56 +58,65 @@ const loginStyle=StyleSheet.create({
 
     componentHeading:{
         color:"#4d4dff",
-        fontSize:25,
+        fontSize:30,
         fontWeight:"bold",
-        textAlign:"left",
+        textAlign:"center",
         marginTop:60,
-        marginBottom:200
+        marginBottom:150,
+     },
+
+     image:{
+         width:15,
+         height:15,
+         marginLeft:280,
+         marginTop:-30
+         
      },
  
 
     view_style:{
-      marginLeft:140,
-      marginBottom:50
+    //   marginLeft:140,
+    //   marginBottom:50,
+    //   flexDirection:"row",
+         textAlign:"center"
+      
     },
-    txt_input_style1:{
-        width:100,
+    txt_input_style:{
+        width:200,
         // flex:1,
         // flexDirection:"row",
-        borderBottomColor:"blue",
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        textAlign:"center",
+        marginLeft:100
          
         // width:100,
         
         // borderWidth:100
         // borderStyle:"solid"
     },
-    txt_input_style2:{
-        width:100,
-
-        // flex:2,
-        // flexDirection:"row",
-        borderBottomColor:"blue",
-         
-        // width:100,
-        
-        // borderWidth:100
-        // borderStyle:"solid"
-    },
+   
     txt_login:{
-        textAlign:"center"
+        textAlign:"center",
+        paddingTop:5
+    
     },
     btn_login:{
-        width:150,
+        width:250,
         height:40,
-        marginLeft:-20,
+        marginLeft:70,
         backgroundColor:"#008CBA",
         borderRadius:50,
-        // textAlign:"center"        
+        textAlign:"center"  ,
+        marginTop:80,
+        marginBottom:30
+              
     },
     link_forgot_pwd:{
         
         color:"#008CBA",
-        borderStyle:"dashed"
+        borderStyle:"dashed",
+        textAlign:"center",
 
     }
 
