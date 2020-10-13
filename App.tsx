@@ -7,21 +7,29 @@
  *
  * @format
  */
-
+import 'react-native-gesture-handler';
+import {DarkTheme, NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {View } from 'react-native';
-import WelcomeScreen from './Components/welcomeScreen'
-
-
-
-        
+import WelcomeScreen from './Components/welcomeScreen';
+import Login from './Components/Login';
+      
 // declare const global: {HermesInternal: null | {}};
+
+const stack=createStackNavigator();
 
 const App = () => {
   return (
-    <View>
-        <WelcomeScreen/>
-     </View>
+
+        // <NavigationContainer theme={DarkTheme}>
+        <NavigationContainer>
+
+          <stack.Navigator initialRouteName="welcome">
+            <stack.Screen name="Welcome-Screen"  component={WelcomeScreen}/>
+            <stack.Screen name="Login"  component={Login}/>
+          </stack.Navigator>
+        </NavigationContainer>
   )
   
 };
