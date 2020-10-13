@@ -40,8 +40,8 @@ const navigation=useNavigation();
         </View>
 
         </ScrollView>
-        <TouchableOpacity  onPress={()=>{navigation.navigate('Login')}} style={ComponentStyling.btn_style}><Text>Login</Text></TouchableOpacity>
-        <TouchableOpacity onPress={()=>{}} style={ComponentStyling.btn_style}><Text>Sign Up</Text></TouchableOpacity>
+        <TouchableOpacity  onPress={()=>{navigation.navigate('Login',{screen:"Login"})}} style={ComponentStyling.btn_style}><Text>Login</Text></TouchableOpacity>
+        <TouchableOpacity onPress={()=>{navigation.navigate('SignUp',{screen:"SignUp"})}} style={ComponentStyling.btn_style}><Text>Sign Up</Text></TouchableOpacity>
       </View>
     )
 }

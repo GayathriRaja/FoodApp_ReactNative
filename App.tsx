@@ -14,6 +14,7 @@ import React from 'react';
 import {View } from 'react-native';
 import WelcomeScreen from './Components/welcomeScreen';
 import Login from './Components/Login';
+import SignUp from './Components/SignUp';
       
 // declare const global: {HermesInternal: null | {}};
 
@@ -25,9 +26,11 @@ const App = () => {
         // <NavigationContainer theme={DarkTheme}>
         <NavigationContainer>
 
-          <stack.Navigator initialRouteName="welcome">
+          <stack.Navigator initialRouteName="Welcome-Screen">
             <stack.Screen name="Welcome-Screen"  component={WelcomeScreen}/>
             <stack.Screen name="Login"  component={Login}/>
+            <stack.Screen name="SignUp"  component={SignUp}/>
+
           </stack.Navigator>
         </NavigationContainer>
   )
