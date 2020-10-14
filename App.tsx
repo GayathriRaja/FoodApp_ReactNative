@@ -15,6 +15,7 @@ import {View } from 'react-native';
 import WelcomeScreen from './Components/welcomeScreen';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
+import PasswordComponent from './ReusableComponent/PasswordComponent'
       
 // declare const global: {HermesInternal: null | {}};
 
@@ -33,6 +34,7 @@ const App = () => {
 
           </stack.Navigator>
         </NavigationContainer>
+        /*  <PasswordComponent/> */
   )
   
 };

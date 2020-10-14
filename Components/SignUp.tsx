@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import {Text, TextInput, View,StyleSheet,TouchableOpacity,Switch} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {Text, TextInput, View,StyleSheet,TouchableOpacity,Switch,ScrollView} from 'react-native';
 import { Screen } from 'react-native-screens';
 import CheckBox from '@react-native-community/checkbox' ;
+import PasswordComponent from '../ReusableComponent/PasswordComponent';
+
 
 
 
@@ -44,7 +46,11 @@ const SignUp: React.FC=()=>{
                 placeholder="Email"
                 value={email}/>
 
-                <TextInput
+                <PasswordComponent/>
+                <PasswordComponent/>
+
+
+                {/* <TextInput
                 style={signupStyle.txt_input_style} 
                 onChangeText={pwd=>{setPassword(pwd)}} 
                 multiline={true} 
@@ -56,25 +62,40 @@ const SignUp: React.FC=()=>{
                 onChangeText={cpwd=>{setconfirmPassword(cpwd)}} 
                 multiline={true} 
                 placeholder="Confirm Password"
-                value={confirmPassword}/>
+                value={confirmPassword}/> */}
 
             </View>
-            <Text style={signupStyle.toggle}>  <CheckBox    disabled={false} 
-            value={checkBoxToggle}
-             onValueChange={()=>{setcheckBoxToggle(!checkBoxToggle)}}/>I agree with all terms and condition</Text>
-             
 
-            <Text style={signupStyle.toggle}>
-            <Switch onValueChange={()=>{setSwitchToggle(!switchToggle)}}
-             value={switchToggle}/>Register me as a service provider</Text>
-             
-            <TouchableOpacity onPress={()=>{}} style={signupStyle.btn_style}>
-            <Text style={signupStyle.txt_signup}>Sign Up</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity >
-                <Text style={signupStyle.link_style} onPress={()=>{navig.navigate('Login',{screen:"Login"})}}>Already have an account? Login</Text>
-            </TouchableOpacity>
+            <ScrollView horizontal ={true} >
+                <View style={signupStyle.scroll_view}>
+                    <Text style={signupStyle.toggle}>  <CheckBox    disabled={false} 
+                    value={checkBoxToggle}
+                    onValueChange={()=>{setcheckBoxToggle(!checkBoxToggle)}}/>I agree with all terms and condition</Text>
+                    <Text style={signupStyle.toggle}>
+                    <Switch onValueChange={()=>{setSwitchToggle(!switchToggle)}}
+                    value={switchToggle}/>Register me as a service provider</Text>
+                    <TouchableOpacity onPress={()=>{}} style={signupStyle.btn_style}>
+                    <Text style={signupStyle.txt_signup}>Sign Up</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity >
+                        <Text style={signupStyle.link_style} onPress={()=>{navig.navigate('Login',{screen:"Login"})}}>Already have an account? Login</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={signupStyle.scroll_view}>
+                    <TouchableOpacity onPress={()=>{}} style={signupStyle.btn_style}>
+                        <Text style={signupStyle.txt_signup}>OTP</Text>
+                    </TouchableOpacity>
+                    <Text style={signupStyle.otp_style}>OTP</Text>
+                    {/* <Text style={signupStyle.txt_input_style}>Verify OTP recieved</Text> */}
+                    <TextInput  style={signupStyle.otp_input} placeholder={"Verify OTP recieved"}/>
+                    <TouchableOpacity onPress={()=>{}} style={signupStyle.btn_style}>
+                        <Text style={signupStyle.txt_signup}>Verify OTP</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity >
+                        <Text style={signupStyle.link_style} onPress={()=>{navig.navigate('Login',{screen:"Login"})}}>Change email or phone?</Text>
+                    </TouchableOpacity>
+                </View>    
+            </ScrollView>
         </View>
     )
 
@@ -82,7 +103,10 @@ const SignUp: React.FC=()=>{
 
 
 const signupStyle=StyleSheet.create({
- 
+    scroll_view:{
+marginLeft:20,
+marginRight:90
+    },
     view_style:{
         fontSize:20
     },
@@ -101,7 +125,8 @@ const signupStyle=StyleSheet.create({
     },
     link_style:{
         color:"blue",
-        textAlign:"center"
+        textAlign:"center",
+        marginLeft:70
     }, 
     txt_input_style:{
         width:200,
@@ -119,7 +144,7 @@ const signupStyle=StyleSheet.create({
         fontWeight:"bold",
         textAlign:"center",
         marginTop:60,
-        marginBottom:120,
+        marginBottom:50,
      },
      txt_signup:{
         textAlign:"center",
@@ -129,6 +154,22 @@ const signupStyle=StyleSheet.create({
          marginLeft:40,
          marginTop:30
 
+     },
+     otp_style:{
+         color:"#c9c5b7",
+         marginLeft:100,
+         marginBottom:0
+     },
+     otp_input:{
+        width:200,
+        // flex:1,
+        // flexDirection:"row",
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        textAlign:"left",
+        marginBottom:0,
+        marginLeft:100,
+        
      }
 })
 
