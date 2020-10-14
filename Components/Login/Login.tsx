@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {Text, TextInput, View,StyleSheet,TouchableOpacity, Image} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import PasswordComponent from '../ReusableComponent/PasswordComponent';
+import PasswordComponent from '../../ReusableComponent/PasswordComponent';
 
 
 // interface LoginData{
@@ -71,7 +71,7 @@ const Login: React.FC = (props) => {
 
                 <View >
                     <TouchableOpacity onPress={()=>{setFgtPassword(false)}}> 
-                        <Image  style={loginStyle.img_clear} source={require('../Images/assets/clear_search.png')}/>
+                        <Image  style={loginStyle.img_clear} source={require('../../Images/assets/clear_search.png')}/>
                     </TouchableOpacity>
                     <Text style={loginStyle.link_forgot_pwd}>Forgot Password?</Text>
                     <TextInput 
@@ -89,7 +89,7 @@ const Login: React.FC = (props) => {
                 </View>   :
                 <View>
                    <TouchableOpacity onPress={()=>{setFgtPassword(false)}}> 
-                        <Image  style={loginStyle.img_clear} source={require('../Images/assets/clear_search.png')}/>
+                        <Image  style={loginStyle.img_clear} source={require('../../Images/assets/clear_search.png')}/>
                     </TouchableOpacity>
                     <Text style={loginStyle.link_forgot_pwd}>Verify email or phone</Text>
                     <TextInput 

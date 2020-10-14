@@ -19,13 +19,13 @@ const navigation=useNavigation();
         <ScrollView horizontal={true}  style={ComponentStyling.scroll_style} >
 
         <View>
-            <Image  source={require('../Images/assets/carousel1.png')} style={ComponentStyling.image_style} />
+            <Image  source={require('../../Images/assets/carousel1.png')} style={ComponentStyling.image_style} />
             <Text style={ComponentStyling.txt_main}>Find services near you</Text>
             <Text style={ComponentStyling.txt_sub}>Search for local and international services and</Text>
             <Text style={ComponentStyling.txt_sub}>browse different categories</Text>
         </View>
         <View>
-            <Image  source={require('../Images/assets/carousel2.png')} style={ComponentStyling.image_style} />
+            <Image  source={require('../../Images/assets/carousel2.png')} style={ComponentStyling.image_style} />
             <Text style={ComponentStyling.txt_main}>Customize your needs</Text>
             <Text style={ComponentStyling.txt_sub}>Ask for what you want through our instance</Text>
             <Text style={ComponentStyling.txt_sub}>customized request</Text>
@@ -33,7 +33,7 @@ const navigation=useNavigation();
 
 
         <View>
-            <Image  source={require('../Images/assets/carousel3.png')} style={ComponentStyling.image_style} />
+            <Image  source={require('../../Images/assets/carousel3.png')} style={ComponentStyling.image_style} />
             <Text style={ComponentStyling.txt_main}>Communicate instantly</Text>
             <Text style={ComponentStyling.txt_sub}>No need to wait and communicate with</Text>
             <Text style={ComponentStyling.txt_sub}>service providers instantly</Text>

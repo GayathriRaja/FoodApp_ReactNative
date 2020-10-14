@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {Text, TextInput, View,StyleSheet,TouchableOpacity,Switch,ScrollView} from 'react-native';
 import { Screen } from 'react-native-screens';
 import CheckBox from '@react-native-community/checkbox' ;
-import PasswordComponent from '../ReusableComponent/PasswordComponent';
+import PasswordComponent from '../../ReusableComponent/PasswordComponent';
 
 
 

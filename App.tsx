@@ -12,10 +12,11 @@ import {DarkTheme, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {View } from 'react-native';
-import WelcomeScreen from './Components/welcomeScreen';
-import Login from './Components/Login';
-import SignUp from './Components/SignUp';
-import PasswordComponent from './ReusableComponent/PasswordComponent'
+import WelcomeScreen from './Components/WelcomeScreen/index';
+import Login from './Components/Login/index';
+import SignUp from './Components/SignUp/index';
+import FoodItem from './ReusableComponent/FoodItem'
+// import PasswordComponent from './ReusableComponent/PasswordComponent';
       
 // declare const global: {HermesInternal: null | {}};
 
@@ -25,16 +26,19 @@ const App = () => {
   return (
 
         // <NavigationContainer theme={DarkTheme}>
-        <NavigationContainer>
+        // <NavigationContainer>
 
-          <stack.Navigator initialRouteName="Welcome-Screen">
-            <stack.Screen name="Welcome-Screen"  component={WelcomeScreen}/>
-            <stack.Screen name="Login"  component={Login}/>
-            <stack.Screen name="SignUp"  component={SignUp}/>
+        //   <stack.Navigator initialRouteName="Welcome-Screen">
+        //     <stack.Screen name="Welcome-Screen"  component={WelcomeScreen}/>
+        //     <stack.Screen name="Login"  component={Login}/>
+        //     <stack.Screen name="SignUp"  component={SignUp}/>
 
-          </stack.Navigator>
-        </NavigationContainer>
+        //   </stack.Navigator>
+        // </NavigationContainer>
         /*  <PasswordComponent/> */
+
+       <FoodItem/>
+
   )
   
 };
