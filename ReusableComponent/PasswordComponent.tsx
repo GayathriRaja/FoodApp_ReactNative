@@ -14,6 +14,15 @@ const PasswordComponent: React.FC=(props)=>{
     //     }
     // }, [password])
 
+    useEffect(() => {
+        if(props.children)
+        {
+            props.children=password;
+            // props.children(password);
+        }
+    
+    }, [password])
+
     return (
         <View style={password_style.view}>
 

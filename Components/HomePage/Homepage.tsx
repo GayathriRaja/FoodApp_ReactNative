@@ -1,7 +1,13 @@
-// import React from 'react';
-// import {TextInput,Image,View,StyleSheet,TouchableOpacity} from 'react-native';
+import React from 'react';
+import {TextInput,Image,View,StyleSheet,TouchableOpacity} from 'react-native';
+import FoodList from '../ListOfFoodItems/List_Food_Items';
 
-// const HomePage: React.FC=(props)=>{
+
+interface FoodListValue{
+    foodlist:FoodList[]
+}
+
+const HomePage: React.FC<FoodListValue>=(props)=>{
 //     const [secureContent, setsecureContent] = useState(true)
 //     const[password,setPassword]=useState('');
 
@@ -18,6 +24,6 @@
 //         </View>
 //     )
 
-// }
+}
 
-// export default HomePage
+export default HomePage

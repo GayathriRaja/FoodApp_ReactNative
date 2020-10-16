@@ -2,34 +2,59 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {Text, TextInput, View,StyleSheet,TouchableOpacity, Image} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { onChange } from 'react-native-reanimated';
 import PasswordComponent from '../../ReusableComponent/PasswordComponent';
+import SignUpAction from '../../Redux/Action/signUpAction'
+import { useSelector } from 'react-redux';
+
 
 
 // interface LoginData{
 //     pwd:string,
-//     fnvalue:any
+//     val:any
+// }
+
+// declare namespace JSX{
+//     interface IntrinsicElements{
+//         pwd:string,
+//         callbackFunctionPWD:any
+//     } 
 // }
 
 const Login: React.FC = (props) => {
 
+
     const[email,setEmail]=useState('');
-    const[password,setPassword]=useState('');
     const[fgtPassword,setFgtPassword]=useState(false);
     const[sendOTP,setSendOTP]=useState(false);
+    const [secureContent, setsecureContent] = useState(false)
+    const[password,setPassword]=useState('');
+    const[message,setMessage]=useState('');
 
+
+    const selector=useSelector(state => state.signUp);
 
 
     // const callbackFunctionPWD=(pwd:string)=>{
     //     setPassword(pwd);
     // }
-
-    
     const navigation=useNavigation();
 
 
+    const onClickHandlerLogin=()=>{
+        selector.map(data=>{
+            if(data.email===email && data.password===password)
+            {
+                setMessage("Login Successfully"+":"+data.email);
+            }
+            else{
+                setMessage("Error enter valid emailid or password"+":"+data.email);
+            }
+        })
+    }
     return (
+        <ScrollView>
         <View >
-
             <Text style={loginStyle.componentHeading}>Login</Text>
 
                 <TextInput 
@@ -40,21 +65,48 @@ const Login: React.FC = (props) => {
                     value={email}/>
 
 
-                    <PasswordComponent  />
-                
-                    {/* <TextInput 
-                     style={loginStyle.txt_input_style}
-                    onChangeText={pwd=>{setPassword(pwd)}} 
-                    multiline={true} 
-                    placeholder="Password"
-                    value={password} 
-                    secureTextEntry={true}
-                    /> */}
-                {/* <Image style={loginStyle.image} source={require('../Images/assets/pswrd_hide.png')}/> */}
+                    {/* <PasswordComponent value={callbackFunctionPWD} /> */}
+
+                    <TextInput 
+                        style={loginStyle.txt_input_style}
+                        onChangeText={pwd=>{setPassword(pwd)}}
+                        secureTextEntry={secureContent}
+                        placeholder="Password"
+                        value={password}
+
+                    />
+
+
+
+
+
+                   
+                {/* <Image style={loginStyle.img_icon} source={require('../../Images/assets/pswrd_hide.png')}/> */}
+
+
+                <TouchableOpacity onPress={()=>{setsecureContent(!secureContent)}}>
+                     <Image source={require('../../Images/assets/pswrd_hide.png')} style={loginStyle.img_icon} />
+                </TouchableOpacity>
+
+                                  
+
+                                   {selector.map(data=>{
+                                       return(
+                                           <View>
+                                                <Text>Name:{data.name}</Text>
+                                                <Text>Email:{data.email}</Text>
+                                                <Text>Password:{data.password}</Text>
+                                                <Text>{selector.length}</Text>
+                                                <Text>ConfirmPassword:{data.confirmPassword}</Text>
+                                           </View>
+
+                                       )
+                                   })}
+
            
               { !fgtPassword ?
                <View>   
-                <TouchableOpacity onPress={()=>{}} style={loginStyle.btn_login}>
+                <TouchableOpacity onPress={onClickHandlerLogin} style={loginStyle.btn_login}>
                 <Text style={loginStyle.txt_login}>Login</Text>
                 </TouchableOpacity>
 
@@ -66,6 +118,7 @@ const Login: React.FC = (props) => {
                 <TouchableOpacity >
                     <Text style={loginStyle.link_forgot_pwd} onPress={()=>{navigation.navigate('SignUp',{screen:"SignUp"})}}>Not a member yet?Sign up now</Text>
                 </TouchableOpacity>
+                <Text>Status:{message}</Text>
 
                 </View>   : !sendOTP  ?
 
@@ -107,13 +160,14 @@ const Login: React.FC = (props) => {
 
 
 
-
                  
 
 
 
               }
         </View>
+        </ScrollView>
+
     )
 
 }
@@ -197,7 +251,21 @@ const loginStyle=StyleSheet.create({
         textAlign:"left",
         marginLeft:60,
         marginTop:20
-    }
+    },
+    img_icon:{
+        //  justifyContent:"center",
+        // marginTop:15,
+         width:20,
+         height:20,
+         marginLeft:280,
+         marginTop:-30
+        },
+    txt_pwd:{
+            width:200,
+            // flexShrink:1,
+            flex:0.5,
+            textAlign:"center"
+        }
 
 
 

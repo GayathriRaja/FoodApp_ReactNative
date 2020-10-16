@@ -1,9 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import {Text, TextInput, View,StyleSheet,TouchableOpacity,Switch,ScrollView} from 'react-native';
+import {Text, TextInput, View,StyleSheet,TouchableOpacity,Switch,ScrollView,Image} from 'react-native';
 import { Screen } from 'react-native-screens';
 import CheckBox from '@react-native-community/checkbox' ;
 import PasswordComponent from '../../ReusableComponent/PasswordComponent';
+import {useDispatch,useSelector} from 'react-redux';
+import SignUpAction from '../../Redux/Action/signUpAction'
 
 
 
@@ -17,12 +19,41 @@ const SignUp: React.FC=()=>{
     const[confirmPassword,setconfirmPassword]=useState('');
     const[switchToggle,setSwitchToggle]=useState(false);
     const[checkBoxToggle,setcheckBoxToggle]=useState(false);
+    const [secureContent, setsecureContent] = useState(true)
+    const[message,setMessage]=useState('');
+    const selector=useSelector(state => state.signUp);
+
+    const dispatch=useDispatch();
+
+     const   onClickHandlerSignup=async()=>{
+
+        await selector.map(data =>{
+
+            if(data.email===email || data.password===password)
+            {
+                setEmail('');
+                setPassword('');
+                setMessage("Error:Email and password are already exists"+data.email);
+                
+
+            }
+        })
 
 
-
-    // var SliderButton=require('react-native-slider-button');
+        //Checks whether entered text fields are not empty and password and confirm password are same and also terms and condition are true
+        if(name.length!=0 && email.length!=0 && password.length!=0 && confirmPassword.length!=0 && confirmPassword==password && checkBoxToggle==true)
+        {
+            dispatch(SignUpAction(name,email,password,confirmPassword));
+           setMessage("SignUp Successfull!!!!"+email);
+        }
+        else{
+            setMessage("Error:Inavalid entry");
+        }
+    }
     
-     const navig=useNavigation();   
+     const navig=useNavigation();
+     
+    
 
 
     return (
@@ -35,19 +66,47 @@ const SignUp: React.FC=()=>{
                 <TextInput
                 style={signupStyle.txt_input_style}
                 onChangeText={name=>{setName(name)}}
-                multiline={true} 
+                // multiline={true} 
                 placeholder="Name" 
                 value={name}/>
 
                 <TextInput
                 style={signupStyle.txt_input_style} 
-                onChangeText={email=>{setEmail(email)}} 
-                multiline={true} 
+                onChangeText={email=>{setEmail(email)}}
+                // textContentType={"emailAddress"} 
+                // autoCompleteType="email"
+                // multiline={true} 
                 placeholder="Email"
                 value={email}/>
 
-                <PasswordComponent/>
-                <PasswordComponent/>
+                {/* <PasswordComponent {...callbackFunctionPWD}/> */}
+                {/* <PasswordComponent  {...callbackFunctionConfirmPWD}/> */}
+
+                <TextInput 
+                        style={signupStyle.txt_input_style}
+                        onChangeText={pwd=>{setPassword(pwd)}}
+                        secureTextEntry={secureContent}
+                        placeholder="Password"
+                        value={password}
+
+                />
+
+                <TouchableOpacity onPress={()=>{setsecureContent(!secureContent)}}>
+                     <Image source={require('../../Images/assets/pswrd_hide.png')} style={signupStyle.img_icon} />
+                </TouchableOpacity>
+
+                <TextInput 
+                        style={signupStyle.txt_input_style}
+                        onChangeText={cpwd=>{setconfirmPassword(cpwd)}}
+                        secureTextEntry={secureContent}
+                        placeholder="Confirm Password"
+                        value={confirmPassword}
+
+                />
+                {/* <Image style={loginStyle.img_icon} source={require('../../Images/assets/pswrd_hide.png')}/> */}
+                <TouchableOpacity onPress={()=>{setsecureContent(!secureContent)}}>
+                     <Image source={require('../../Images/assets/pswrd_hide.png')} style={signupStyle.img_icon} />
+                </TouchableOpacity>
 
 
                 {/* <TextInput
@@ -74,12 +133,13 @@ const SignUp: React.FC=()=>{
                     <Text style={signupStyle.toggle}>
                     <Switch onValueChange={()=>{setSwitchToggle(!switchToggle)}}
                     value={switchToggle}/>Register me as a service provider</Text>
-                    <TouchableOpacity onPress={()=>{}} style={signupStyle.btn_style}>
-                    <Text style={signupStyle.txt_signup}>Sign Up</Text>
+                    <TouchableOpacity onPress={onClickHandlerSignup} style={signupStyle.btn_style}>
+                    <Text style={signupStyle.txt_signup} >Sign Up</Text>
                     </TouchableOpacity>
                     <TouchableOpacity >
-                        <Text style={signupStyle.link_style} onPress={()=>{navig.navigate('Login',{screen:"Login"})}}>Already have an account? Login</Text>
+                        <Text style={signupStyle.link_style} onPress={()=>{navig.navigate('Login',{screen:"Login"}) }}>Already have an account? Login</Text>
                     </TouchableOpacity>
+                    <Text>{message}</Text>
                 </View>
                 <View style={signupStyle.scroll_view}>
                     <TouchableOpacity onPress={()=>{}} style={signupStyle.btn_style}>
@@ -136,7 +196,11 @@ marginRight:90
         borderBottomWidth: 1,
         textAlign:"left",
         marginLeft:100,
-        
+
+        // borderColor:"green",
+        // borderWidth:3,
+        // borderStyle:"solid"
+
     },
     componentHeading:{
         color:"#4d4dff",
@@ -170,7 +234,15 @@ marginRight:90
         marginBottom:0,
         marginLeft:100,
         
-     }
+     },
+     img_icon:{
+        //  justifyContent:"center",
+        // marginTop:15,
+         width:20,
+         height:20,
+         marginLeft:280,
+         marginTop:-30
+        },
 })
 
 
