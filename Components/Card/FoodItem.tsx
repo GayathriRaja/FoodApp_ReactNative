@@ -9,32 +9,35 @@ interface FoodDetails{
     description:string
 }
 
-const FoodItem: React.FC<FoodDetails>=(props)=>{
+//---------------Reusable food component 
+
+// const FoodItem: React.FC<FoodDetails>=(props)=>{
+    const FoodItem: React.FC=()=>{
 
     return (
+ 
 
+        // <ScrollView  horizontal={true}>
 
-        <ScrollView  horizontal={true}>
-
-                {/* <View style={food_item_style.view_each_value}>
-                    <Image style={food_item_style.Image} source={require('../Images/assets/food.jpg')}/>
+                <View style={food_item_style.view_each_value}>
+                    <Image style={food_item_style.Image} source={require('../../Images/assets/food.jpg')}/>
                     <Text>Home made burder</Text>
                     <Text>Burger King</Text>
                     <Text>Lorem ipsum dolor sit, amet consectetur 
                         adipisicing elit. Cupiditate facilis consequatur
                     </Text>
-                </View> */}
+                </View>
 
 
-                <View style={food_item_style.view_each_value}>
+                /* <View style={food_item_style.view_each_value}>
                     <Image style={food_item_style.Image} source={require('../../Images/assets/food.jpg')}/>
                     <Text>{props.name}</Text>
                     <Text>{props.restaurantName}</Text>
                     <Text>{props.description}</Text>
-                </View>
+                </View> */
                
             
-        </ScrollView>
+        // </ScrollView>
     )
 
 }

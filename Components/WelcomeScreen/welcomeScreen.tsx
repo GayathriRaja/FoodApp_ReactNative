@@ -9,7 +9,7 @@ import {Text,View,Button,Image,StyleSheet,TouchableOpacity,ScrollView} from 'rea
 
 // }
 
-
+//------------Welcome screen of the food app-------------------
 const WelcomeScreen : React.FC=()=>{
 
 const navigation=useNavigation();

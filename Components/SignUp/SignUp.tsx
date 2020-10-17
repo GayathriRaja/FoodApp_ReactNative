@@ -5,7 +5,7 @@ import { Screen } from 'react-native-screens';
 import CheckBox from '@react-native-community/checkbox' ;
 import PasswordComponent from '../../ReusableComponent/PasswordComponent';
 import {useDispatch,useSelector} from 'react-redux';
-import SignUpAction from '../../Redux/Action/signUpAction'
+import SignUpAction from '../../Redux/Action/signUpAction';
 
 
 
@@ -19,7 +19,11 @@ const SignUp: React.FC=()=>{
     const[confirmPassword,setconfirmPassword]=useState('');
     const[switchToggle,setSwitchToggle]=useState(false);
     const[checkBoxToggle,setcheckBoxToggle]=useState(false);
-    const [secureContent, setsecureContent] = useState(true)
+
+    //Usestate used for viewing and not viewing password(toggle)
+    const [secureContent, setsecureContent] = useState(false)
+    const [secureContent2, setsecureContent2] = useState(false)
+
     const[message,setMessage]=useState('');
     const selector=useSelector(state => state.signUp);
 
@@ -27,9 +31,45 @@ const SignUp: React.FC=()=>{
 
      const   onClickHandlerSignup=async()=>{
 
-        await selector.map(data =>{
+        //   setMessage("email:"+name);
 
-            if(data.email===email || data.password===password)
+        //Used Fetch method posting the data from signup page to server
+
+        
+
+         await fetch('http://localhost:8000/api/v1/register/',{
+            method:"POST",
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+
+
+                // username:"rani", 
+                // password:"rani@123", 
+                // email:"rani@gmail.com"
+
+                username:name,
+                password:password,
+                email:email
+
+            })
+        }).then(response=>response.json()).then(result=>{
+            setMessage("SignUp Successfull!!!!")
+        }).catch(result=>{
+            setMessage("Invalid data")
+        })
+
+
+
+
+
+
+        // Used Redux to store data
+
+        //Used for checking whether the password and email are unique from stored data
+
+         selector.map(data =>{
+
+            if(data.email==email || data.password==password)
             {
                 setEmail('');
                 setPassword('');
@@ -37,13 +77,15 @@ const SignUp: React.FC=()=>{
                 
 
             }
+
         })
 
-
-        //Checks whether entered text fields are not empty and password and confirm password are same and also terms and condition are true
+ 
+        // Checks whether entered text fields are not empty and password and confirm password are same and also terms and condition are true
         if(name.length!=0 && email.length!=0 && password.length!=0 && confirmPassword.length!=0 && confirmPassword==password && checkBoxToggle==true)
         {
-            dispatch(SignUpAction(name,email,password,confirmPassword));
+            
+            await dispatch(SignUpAction(name,email,password,confirmPassword));
            setMessage("SignUp Successfull!!!!"+email);
         }
         else{
@@ -92,19 +134,21 @@ const SignUp: React.FC=()=>{
                 />
 
                 <TouchableOpacity onPress={()=>{setsecureContent(!secureContent)}}>
+                     <Text>{secureContent}</Text>
                      <Image source={require('../../Images/assets/pswrd_hide.png')} style={signupStyle.img_icon} />
                 </TouchableOpacity>
 
                 <TextInput 
                         style={signupStyle.txt_input_style}
                         onChangeText={cpwd=>{setconfirmPassword(cpwd)}}
-                        secureTextEntry={secureContent}
+                        secureTextEntry={secureContent2}
                         placeholder="Confirm Password"
                         value={confirmPassword}
 
                 />
                 {/* <Image style={loginStyle.img_icon} source={require('../../Images/assets/pswrd_hide.png')}/> */}
-                <TouchableOpacity onPress={()=>{setsecureContent(!secureContent)}}>
+                <TouchableOpacity onPress={()=>{setsecureContent2(!secureContent2)}}>
+                     <Text>{secureContent2}</Text>
                      <Image source={require('../../Images/assets/pswrd_hide.png')} style={signupStyle.img_icon} />
                 </TouchableOpacity>
 
@@ -240,7 +284,7 @@ marginRight:90
         // marginTop:15,
          width:20,
          height:20,
-         marginLeft:280,
+         marginLeft:320,
          marginTop:-30
         },
 })

@@ -23,11 +23,11 @@ import { useSelector } from 'react-redux';
 
 const Login: React.FC = (props) => {
 
-
+   //State managing within component using usestate
     const[email,setEmail]=useState('');
     const[fgtPassword,setFgtPassword]=useState(false);
     const[sendOTP,setSendOTP]=useState(false);
-    const [secureContent, setsecureContent] = useState(false)
+    const [secureContent, setSecureContent] = useState(false)
     const[password,setPassword]=useState('');
     const[message,setMessage]=useState('');
 
@@ -42,10 +42,41 @@ const Login: React.FC = (props) => {
 
 
     const onClickHandlerLogin=()=>{
+
+        //Used Fetch method posting the data to check the email password maches in ther server(Login)
+
+
+        fetch('http://127.0.0.1:8000/token/',{
+            method:"POST",
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+
+
+                // username:"rani", 
+                // password:"rani@123", 
+                // email:"rani@gmail.com"
+                email:email,
+                password:password
+
+            })
+        }).then(response=>response.json()).then(result=>{
+            setMessage("Login Successfull!!!!");
+            // navigation.navigate('SignUp',{screen:"SignUp"})}
+
+        }).catch(result=>{
+            setMessage("Invalid data")
+        })
+
+
+
+        
+        // Checks email and password exists in the record(redux state management)
+
         selector.map(data=>{
             if(data.email===email && data.password===password)
             {
                 setMessage("Login Successfully"+":"+data.email);
+                navigation.navigate('Homepage',{screen:"Homepage"})
             }
             else{
                 setMessage("Error enter valid emailid or password"+":"+data.email);
@@ -84,7 +115,8 @@ const Login: React.FC = (props) => {
                 {/* <Image style={loginStyle.img_icon} source={require('../../Images/assets/pswrd_hide.png')}/> */}
 
 
-                <TouchableOpacity onPress={()=>{setsecureContent(!secureContent)}}>
+                <TouchableOpacity onPress={()=>{setSecureContent(!secureContent)}}>
+                <Text>{secureContent}</Text>
                      <Image source={require('../../Images/assets/pswrd_hide.png')} style={loginStyle.img_icon} />
                 </TouchableOpacity>
 
@@ -257,7 +289,7 @@ const loginStyle=StyleSheet.create({
         // marginTop:15,
          width:20,
          height:20,
-         marginLeft:280,
+         marginLeft:320,
          marginTop:-30
         },
     txt_pwd:{
